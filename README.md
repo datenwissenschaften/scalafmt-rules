@@ -27,6 +27,7 @@ addSbtPlugin("datenwissenschaften" % "scalafmt-rules" % "1.0.0")
 After installing the plugin, add the following configuration in your `build.sbt` to ensure the latest Scalafmt config is downloaded during the compile process:
 
 ```scala
+scalafmtOverwrite := true // Overwrite the existing Scalafmt configuration
 (compile in Compile) := ((compile in Compile) dependsOn downloadScalafmtConfig).value
 ```
 

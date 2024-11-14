@@ -1,5 +1,5 @@
 name := "scalafmt-rules"
-version := "1.0.0"
+version := "1.1.0"
 organization := "datenwissenschaften"
 sbtPlugin := true
 scalaVersion := "2.12.17"
