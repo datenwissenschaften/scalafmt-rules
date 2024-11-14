@@ -19,7 +19,7 @@ To use the **scalafmt-rules** plugin, add the following line to your `project/pl
 
 ```scala
 resolvers += "GitHub Packages" at "https://maven.pkg.github.com/datenwissenschaften/scalafmt-rules"
-addSbtPlugin("datenwissenschaften" % "scalafmt-rules" % "1.0.0")
+addSbtPlugin("datenwissenschaften" % "scalafmt-rules" % "1.1.0")
 ```
 
 ### Example Usage
