@@ -20,7 +20,7 @@ jobs:
       - name: Extract Version
         id: extract_version
         run: |
-          VERSION=$(grep -oP 'version := "\K[^\"]+' scalafix/build.sbt)
+          VERSION=$(grep -oP 'version := "\K[^\"]+' build.sbt)
           echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
 
 #      - name: Update README.md with Latest Version
