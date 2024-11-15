@@ -91,6 +91,4 @@ jobs:
         env:
           NEXUS_USER: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        run: |
-          cd scalafix
-          sbt clean publish
+        run: sbt clean publish
