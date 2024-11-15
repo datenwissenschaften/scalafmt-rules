@@ -1,7 +1,7 @@
 // Project metadata
 ThisBuild / name := "scalafmt-rules"
-ThisBuild / version := "1.2.0"
-ThisBuild / organization := "datenwissenschaften"
+ThisBuild / version := "1.3.0"
+ThisBuild / organization := "com.datenwissenschaften"
 ThisBuild / sbtPlugin := true
 ThisBuild / versionScheme := Some("semver-spec")
 
@@ -14,10 +14,7 @@ ThisBuild / semanticdbEnabled := true
 ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 
 // Add Scala compiler options
-ThisBuild / scalacOptions ++= Seq(
-  "-Ywarn-unused", // Enables warnings for unused code
-  "-Xlint:unused" // Enables detailed linting for unused code (Scala 2.12.2 or above)
-)
+ThisBuild / scalacOptions ++= Seq("-Ywarn-unused", "-Xlint:unused")
 
 // Licensing and repository information
 ThisBuild / licenses := Seq("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
