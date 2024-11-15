@@ -1,19 +1,19 @@
 package com.datenwissenschaften.scalafmt
 
-import sbt.*
 import sbt.Keys.*
+import sbt.*
 
 import java.net.URL
-import java.nio.file.{Files, Paths}
+import java.nio.file.{Files, Paths, StandardCopyOption}
 
 // noinspection ScalaUnusedSymbol
 object ScalafmtConfigDownloaderPlugin extends AutoPlugin {
 
   // noinspection ScalaWeakerAccess
   object autoImport {
-    lazy val downloadScalafmtConfig = taskKey[Unit]("Download .scalafmt.conf file from GitHub")
-    lazy val scalafmtConfigUrl = settingKey[String]("URL of the .scalafmt.conf file")
-    lazy val scalafmtOverwrite = settingKey[Boolean]("Overwrite existing .scalafmt.conf file")
+    lazy val downloadScalafmtConfig: TaskKey[Unit] = taskKey[Unit]("Download .scalafmt.conf file from the specified URL")
+    lazy val scalafmtConfigUrl: SettingKey[String] = settingKey[String]("URL of the .scalafmt.conf file")
+    lazy val scalafmtOverwrite: SettingKey[Boolean] = settingKey[Boolean]("Overwrite existing .scalafmt.conf file if it exists")
   }
 
   import autoImport.*
@@ -21,16 +21,18 @@ object ScalafmtConfigDownloaderPlugin extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
     scalafmtConfigUrl := "https://raw.githubusercontent.com/datenwissenschaften/scalafmt-rules/main/.scalafmt.conf",
     scalafmtOverwrite := false,
-    downloadScalafmtConfig := {
+    downloadScalafmtConfig := Def.task {
+      val log = streams.value.log
       val url = new URL(scalafmtConfigUrl.value)
       val targetPath = Paths.get(".scalafmt.conf")
-      if (!Files.exists(targetPath) || scalafmtOverwrite.value) {
-        streams.value.log.info(s"Downloading .scalafmt.conf from $url")
-        Files.copy(url.openStream(), targetPath)
-        streams.value.log.info(".scalafmt.conf downloaded successfully!")
+
+      if (Files.exists(targetPath) && !scalafmtOverwrite.value) {
+        log.info(".scalafmt.conf already exists. Delete the file or set `scalafmtOverwrite := true` to overwrite it.")
       } else {
-        streams.value.log.info(".scalafmt.conf already exists. Delete the file if you want to download it again.")
+        log.info(s"Downloading .scalafmt.conf from $url")
+        Files.copy(url.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING)
+        log.info(".scalafmt.conf downloaded successfully!")
       }
-    }
+    }.value
   )
 }
