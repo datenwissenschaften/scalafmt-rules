@@ -3,6 +3,7 @@ ThisBuild / name := "scalafmt-rules"
 ThisBuild / version := "1.2.0"
 ThisBuild / organization := "datenwissenschaften"
 ThisBuild / sbtPlugin := true
+ThisBuild / versionScheme := Some("semver-spec")
 
 // Global settings
 Global / excludeLintKeys += ThisBuild / name
